@@ -33,9 +33,9 @@ class Matlab:
     def launch_process(self):
         self.kill()
         if use_pexpect:
-            self.proc = pexpect.spawn("matlab", ["-nosplash", "-nodesktop"])
+            self.proc = pexpect.spawn("/Applications/MATLAB_R2018a.app/bin/matlab", ["-nosplash", "-nodesktop"])
         else:
-            self.proc = Popen(["matlab", "-nosplash", "-nodesktop"], stdin=PIPE,
+            self.proc = Popen(["/Applications/MATLAB_R2018a.app/bin/matlab", "-nosplash", "-nodesktop"], stdin=PIPE,
                               close_fds=True, preexec_fn=os.setsid)
         return self.proc
 
@@ -76,7 +76,7 @@ class Matlab:
                     self.proc.stdin.flush()
                 break
             except Exception as ex:
-                print ex
+                print(ex)
                 self.launch_process()
                 num_retry += 1
                 time.sleep(1)
